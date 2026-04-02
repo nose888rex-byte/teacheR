@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Functions | Terminal</title>
+    <style>
+        :root {
+            --bg-color: #050505;
+            --text-color: #00ff00;
+            --highlight: #008800;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        nav {
+            background-color: #000;
+            border-bottom: 2px solid var(--text-color);
+            padding: 1.5rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            text-align: center;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: text-shadow 0.3s;
+        }
+
+        nav a:hover {
+            text-shadow: 0 0 10px var(--text-color);
+        }
+
+        main {
+            margin-top: 100px;
+            padding: 2rem;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .content-section {
+            display: none;
+            border: 1px solid var(--highlight);
+            padding: 30px;
+            background: rgba(0, 255, 0, 0.03);
+            box-shadow: inset 0 0 15px rgba(0, 255, 0, 0.05);
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    
+        h1, h2, h3 {
+            border-bottom: 1px dashed var(--highlight);
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            margin-top: 25px;
+        }
+
+        h1::before, h2::before, h3::before {
+            content: ">_ ";
+        }
+
+        pre {
+            background-color: #000;
+            border: 1px solid var(--highlight);
+            padding: 15px;
+            overflow-x: auto;
+            margin: 15px 0;
+            color: #ccc; 
+        }
+
+        code {
+            font-family: Consolas, monospace;
+        }
+        
+        p {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#intro">Inicio</a>
+        <a href="#basicas">Funciones Básicas</a>
+        <a href="#avanzadas">Funciones Avanzadas</a>
+    </nav>
+
+    <main>
+        <section id="intro" class="content-section">
+            <h1>Manual: JS Functions (Facilito)</h1>
+            <p>Base de datos cargada. Utiliza la barra de navegación superior para filtrar los módulos.</p>
+            <p>El enrutamiento está controlado 100% por JavaScript interceptando los cambios en el hash (<code>#</code>) de la URL para ocultar y revelar los contenedores del DOM sin recargas de servidor.</p>
+        </section>
+
+        <section id="basicas" class="content-section">
+            <h2>Módulo: Funciones Básicas</h2>
+            <p>Bloques de código fundamentales diseñados para ejecutar tareas específicas y repetitivas.</p>
+            
+            <h3>1. Declaración de Función (Function Declaration)</h3>
+            <p>La sintaxis clásica. Cuentan con "hoisting", lo que permite llamarlas antes de que sean declaradas en el código.</p>
+<pre><code>function inicializar(sistema) {
+    return "Inicializando " + sistema + "...";
+}
+console.log(inicializar("Core"));</code></pre>
+
+            <h3>2. Expresión de Función (Function Expression)</h3>
+            <p>La función se asigna a una variable. No tienen hoisting; la variable debe estar definida antes de su ejecución.</p>
+<pre><code>const analizar = function(datos) {
+    return "Analizando " + datos.length + " bytes.";
+};
+console.log(analizar([1, 0, 1, 1]));</code></pre>
+
+            <h3>3. Funciones Flecha (Arrow Functions)</h3>
+            <p>Sintaxis compacta introducida en ES6. No tienen su propio contexto <code>this</code> (heredan el del ámbito superior).</p>
+<pre><code>const encriptar = (cadena) => {
+    return btoa(cadena);
+};
+
+// Si es una sola línea, el return está implícito:
+const desencriptar = cadena => atob(cadena);</code></pre>
+        </section>
+
+        <section id="avanzadas" class="content-section">
+            <h2>Módulo: Funciones Avanzadas</h2>
+            <p>Estructuras complejas para manejar asincronía y encapsulamiento de variables.</p>
+
+            <h3>1. Callbacks</h3>
+            <p>Funciones que se pasan como argumentos a otras funciones para ejecutarse secuencialmente una vez que termina una tarea.</p>
+<pre><code>function extraerDatos(callback) {
+    setTimeout(() => {
+        console.log("Extracción completada.");
+        callback();
+    }, 1000);
+}
+extraerDatos(() => console.log("Procesando paquete..."));</code></pre>
+
+            <h3>2. Promesas (Promises)</h3>
+            <p>Objetos que representan la finalización (o falla) eventual de una operación asíncrona, previniendo el "Callback Hell".</p>
+<pre><code>const saltarFirewall = new Promise((resolve, reject) => {
+    let exito = true;
+    if(exito) resolve("Brecha confirmada.");
+    else reject("Acceso denegado.");
+});
+
+saltarFirewall
+    .then(res => console.log(res))
+    .catch(err => console.error(err));</code></pre>
+
+            <h3>3. Async / Await</h3>
+            <p>Azúcar sintáctico sobre las promesas. Permite escribir código asíncrono que se lee como si fuera síncrono, facilitando el control de flujo.</p>
+<pre><code>async function iniciarInfiltracion() {
+    try {
+        console.log("Buscando vulnerabilidades...");
+        const resultado = await saltarFirewall;
+        console.log(resultado);
+    } catch (error) {
+        console.error(error);
+    }
+}</code></pre>
+
+            <h3>4. Closures (Clausuras)</h3>
+            <p>Una función que recuerda el entorno (variables locales) en el que fue creada, incluso si se ejecuta fuera de ese entorno.</p>
+<pre><code>function generarToken(prefijo) {
+    let sec = 0;
+    return function() {
+        sec++;
+        return prefijo + "-" + sec;
+    }
+}
+const tokenAcceso = generarToken("ROOT");
+console.log(tokenAcceso()); // ROOT-1
+console.log(tokenAcceso()); // ROOT-2</code></pre>
+        </section>
+    </main>
+
+    
+</body>
+<link rel="stylesheet" href="script.js">
+</html>
+
